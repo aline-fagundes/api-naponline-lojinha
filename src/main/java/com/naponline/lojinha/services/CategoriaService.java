@@ -1,7 +1,7 @@
 package com.naponline.lojinha.services;
 
-import com.naponline.lojinha.entidades.Categoria;
-import com.naponline.lojinha.entidades.Produto;
+import com.naponline.lojinha.model.entity.Categoria;
+import com.naponline.lojinha.model.entity.Produto;
 import com.naponline.lojinha.enums.CategoriaStatus;
 import com.naponline.lojinha.repositories.CategoriaRepository;
 import com.naponline.lojinha.repositories.ProdutoRepository;

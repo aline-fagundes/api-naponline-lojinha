@@ -1,16 +1,14 @@
-package com.naponline.lojinha.entidades;
+package com.naponline.lojinha.model.dto;
 
 import com.naponline.lojinha.enums.CategoriaStatus;
+import com.naponline.lojinha.model.entity.Categoria;
+import com.naponline.lojinha.model.entity.Produto;
 
 import javax.persistence.*;
 import java.time.Instant;
 
-@Entity
-@Table(name = "tb_categorias")
-public class Categoria {
+public class CategoriaDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String descricao;
@@ -18,19 +16,13 @@ public class Categoria {
     @Enumerated(EnumType.STRING)
     private CategoriaStatus status = CategoriaStatus.ATIVA;
 
-    @Column(columnDefinition = "DATETIME")
-    private Instant createdAt;
-
-    @Column(columnDefinition = "DATETIME")
-    private Instant updatedAt;
-
-    @PrePersist
-    public void prePersit(){
-        createdAt = Instant.now();
+    public CategoriaDTO(){
     }
-    @PreUpdate
-    public void preUpdate(){
-        updatedAt = Instant.now();
+
+    public CategoriaDTO(Categoria categoria){
+        id = categoria.getId();
+        descricao = categoria.getDescricao();
+        status = categoria.getStatus();
     }
 
     public long getId() {

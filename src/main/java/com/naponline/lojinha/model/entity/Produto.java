@@ -1,4 +1,4 @@
-package com.naponline.lojinha.entidades;
+package com.naponline.lojinha.model.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -34,6 +34,7 @@ public class Produto {
     public void prePersit(){
         createdAt = Instant.now();
     }
+
     @PreUpdate
     public void preUpdate(){
         updatedAt = Instant.now();
@@ -77,5 +78,13 @@ public class Produto {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
     }
 }

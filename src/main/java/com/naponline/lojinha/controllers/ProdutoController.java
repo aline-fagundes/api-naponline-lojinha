@@ -1,6 +1,6 @@
 package com.naponline.lojinha.controllers;
 
-import com.naponline.lojinha.entidades.Produto;
+import com.naponline.lojinha.model.entity.Produto;
 import com.naponline.lojinha.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
