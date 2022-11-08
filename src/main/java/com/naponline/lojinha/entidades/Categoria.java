@@ -3,6 +3,8 @@ package com.naponline.lojinha.entidades;
 import com.naponline.lojinha.enums.CategoriaStatus;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_categorias")
@@ -16,9 +18,6 @@ public class Categoria {
 
     @Enumerated(EnumType.STRING)
     private CategoriaStatus status = CategoriaStatus.ATIVA;
-
-//    @OneToMany(mappedBy = "categoria")
-//    private List<Produto> produtos = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -43,12 +42,4 @@ public class Categoria {
     public void setStatus(CategoriaStatus status) {
         this.status = status;
     }
-
-//    public List<Produto> getProdutos() {
-//        return produtos;
-//    }
-
-//    public void setProdutos(List<Produto> produtos) {
-//        this.produtos = produtos;
-//    }
 }

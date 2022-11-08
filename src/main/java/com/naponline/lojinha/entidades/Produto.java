@@ -13,7 +13,7 @@ public class Produto {
     private long id;
 
     @NotBlank(message = "Informe descrição")
-    @Size(message = "O campo deve ter entre 3 e 10 caracteres", max = 10, min = 3)
+    @Size(message = "O campo deve ter entre 3 e 20 caracteres", max = 20, min = 3)
     private String descricao;
 
     private Float preco;
