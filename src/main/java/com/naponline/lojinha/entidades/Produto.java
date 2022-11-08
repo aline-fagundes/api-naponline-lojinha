@@ -3,6 +3,7 @@ package com.naponline.lojinha.entidades;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.Instant;
 
 @Entity
 @Table(name = "tb_produtos")
@@ -22,6 +23,21 @@ public class Produto {
 
     @ManyToOne
     private Categoria categoria;
+
+    @Column(columnDefinition = "DATETIME")
+    private Instant createdAt;
+
+    @Column(columnDefinition = "DATETIME")
+    private Instant updatedAt;
+
+    @PrePersist
+    public void prePersit(){
+        createdAt = Instant.now();
+    }
+    @PreUpdate
+    public void preUpdate(){
+        updatedAt = Instant.now();
+    }
 
     public long getId() {
         return id;

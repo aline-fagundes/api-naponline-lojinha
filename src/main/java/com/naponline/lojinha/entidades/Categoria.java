@@ -3,8 +3,7 @@ package com.naponline.lojinha.entidades;
 import com.naponline.lojinha.enums.CategoriaStatus;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.Instant;
 
 @Entity
 @Table(name = "tb_categorias")
@@ -18,6 +17,21 @@ public class Categoria {
 
     @Enumerated(EnumType.STRING)
     private CategoriaStatus status = CategoriaStatus.ATIVA;
+
+    @Column(columnDefinition = "DATETIME")
+    private Instant createdAt;
+
+    @Column(columnDefinition = "DATETIME")
+    private Instant updatedAt;
+
+    @PrePersist
+    public void prePersit(){
+        createdAt = Instant.now();
+    }
+    @PreUpdate
+    public void preUpdate(){
+        updatedAt = Instant.now();
+    }
 
     public long getId() {
         return id;
