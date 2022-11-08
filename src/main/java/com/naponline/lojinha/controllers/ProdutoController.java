@@ -1,5 +1,6 @@
 package com.naponline.lojinha.controllers;
 
+import com.naponline.lojinha.model.dto.ProdutoDTO;
 import com.naponline.lojinha.model.entity.Produto;
 import com.naponline.lojinha.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,20 +19,18 @@ public class ProdutoController {
     ProdutoService service;
 
     @GetMapping
-    public ResponseEntity<List<Produto>> consultarProdutos(){
-        List<Produto> lista = service.consultar();
-        return ResponseEntity.status(HttpStatus.OK).body(lista);
+    public ResponseEntity<List<ProdutoDTO>> consultarProdutos(){
+        return ResponseEntity.status(HttpStatus.OK).body(service.consultar());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Produto> consultarPorId(@PathVariable("id") Long id){
-        return  ResponseEntity.ok().body(service.consultarPorId(id));
+    public ResponseEntity<ProdutoDTO> consultarPorId(@PathVariable("id") Long id){
+        return  ResponseEntity.ok().body(service.consultarPorIdProdutoDTO(id));
     }
 
     @PostMapping
-    public ResponseEntity<Produto> salvar(@Valid @RequestBody Produto produto){
-        Produto prod = service.salvar(produto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(prod);
+    public ResponseEntity<ProdutoDTO> salvar(@Valid @RequestBody ProdutoDTO produtoDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.salvar(produtoDTO));
     }
 
     @PutMapping("/{id}")
@@ -43,6 +42,5 @@ public class ProdutoController {
     public ResponseEntity<Void> excluir(@PathVariable("id") Long id) {
         service.excluir(id);
         return ResponseEntity.noContent().build();
-        //return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
