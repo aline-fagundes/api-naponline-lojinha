@@ -1,6 +1,6 @@
 package com.naponline.lojinha.repositories;
 
-import com.naponline.lojinha.model.entity.Categoria;
+import com.naponline.lojinha.model.Categoria;
 import com.naponline.lojinha.enums.CategoriaStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

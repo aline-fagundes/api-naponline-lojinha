@@ -1,12 +1,14 @@
 package com.naponline.lojinha.services;
 
-import com.naponline.lojinha.model.dto.ProdutoDTO;
-import com.naponline.lojinha.model.entity.Categoria;
-import com.naponline.lojinha.model.entity.Produto;
+import com.naponline.lojinha.controllers.dto.ProdutoDTO;
+import com.naponline.lojinha.model.Categoria;
+import com.naponline.lojinha.model.Produto;
 import com.naponline.lojinha.enums.CategoriaStatus;
 import com.naponline.lojinha.exceptions.CategoriaInativaException;
 import com.naponline.lojinha.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -25,22 +27,18 @@ public class ProdutoService {
     @Autowired
     CategoriaService categoriaService;
 
-    public List<ProdutoDTO> consultar(){
-        List<Produto> produtos = produtoRepository.findAll();
-        List<ProdutoDTO> produtosDTO = new ArrayList<>();
-        for(Produto produto : produtos){
-            produtosDTO.add(new ProdutoDTO(produto));
-        }
-        return produtosDTO;
+    public Page<ProdutoDTO> consultar(Pageable paginacao){
+        Page<Produto> produtos = produtoRepository.findAll(paginacao);
+        return ProdutoDTO.converter(produtos);
     }
 
-    private Produto consultarPorIdProduto(Long id){
+    private Produto consultarProdutoPorId(Long id){
         Optional<Produto> obj = produtoRepository.findById(id);
         Produto prod = obj.orElseThrow(()-> new EntityNotFoundException("Produto não encontrado"));
         return prod;
     }
 
-    public ProdutoDTO consultarPorIdProdutoDTO(Long id){
+    public ProdutoDTO consultarProdutoDTOPorId(Long id){
         Optional<Produto> obj = produtoRepository.findById(id);
         Produto produto = null; // obj.orElseThrow(()-> new EntityNotFoundException("Produto não encontrado"));
         try {
@@ -69,7 +67,7 @@ public class ProdutoService {
     }
 
     public ProdutoDTO alterar(Long id, Produto produto){
-        ProdutoDTO prod = this.consultarPorIdProdutoDTO(id);
+        Produto prod = this.consultarProdutoPorId(id);
 
         prod.setDescricao(produto.getDescricao());
         prod.setPreco(produto.getPreco());
@@ -82,7 +80,7 @@ public class ProdutoService {
 
     @Transactional
     public void excluir(Long id){
-        Produto prod = this.consultarPorIdProduto(id);
+        Produto prod = this.consultarProdutoPorId(id);
         produtoRepository.delete(prod);
     }
 }

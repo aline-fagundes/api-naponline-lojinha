@@ -1,28 +1,22 @@
-package com.naponline.lojinha.model.entity;
+package com.naponline.lojinha.model;
+
+import com.naponline.lojinha.enums.CategoriaStatus;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.time.Instant;
 
 @Entity
-@Table(name = "tb_produtos")
-public class Produto {
+@Table(name = "tb_categorias")
+public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank(message = "Informe descrição")
-    @Size(message = "O campo deve ter entre 3 e 20 caracteres", max = 20, min = 3)
     private String descricao;
 
-    private Float preco;
-
-    private Integer estoque;
-
-    @ManyToOne
-    private Categoria categoria;
+    @Enumerated(EnumType.STRING)
+    private CategoriaStatus status = CategoriaStatus.ATIVA;
 
     @Column(columnDefinition = "DATETIME")
     private Instant createdAt;
@@ -56,28 +50,12 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public Float getPreco() {
-        return preco;
+    public CategoriaStatus getStatus() {
+        return status;
     }
 
-    public void setPreco(Float preco) {
-        this.preco = preco;
-    }
-
-    public Integer getEstoque() {
-        return estoque;
-    }
-
-    public void setEstoque(Integer estoque) {
-        this.estoque = estoque;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setStatus(CategoriaStatus status) {
+        this.status = status;
     }
 
     public Instant getCreatedAt() {
